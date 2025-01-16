@@ -1,28 +1,52 @@
-def basic_calculator():
-    def addition(x, y):
-        return x + y 
-    def subtraction(x, y):
-        return x - y
-    def multiplication(x, y):
-        return x * y
-    def division(x, y):
-        if y != 0:
-            return x / y
+from tkinter import Tk, Entry, Button, StringVar
+
+class Calculator:
+    def __init__(self, master):
+        master.title("Basic Calculator")
+        master.geometry('357x420+0+0')
+        master.config(bg = 'gray')
+        master.resizable(False,False)
+
+        self.equation = StringVar()
+        self.entry_value = ''
+        Entry(width = 17, bg = '#ccddff', font = ('Arial Bold', 28), textvariable = self.equation).place(x = 0, y = 0)
+
+        Button(width = 11, height = 4, text = '(', relief = 'flat', bg = 'white', command = lambda: self.show('(')).place(x = 0, y = 50)
+        Button(width = 11, height = 4, text = ')', relief = 'flat', bg = 'white', command = lambda: self.show(')')).place(x = 90, y = 50)
+        Button(width = 11, height = 4, text = '%', relief = 'flat', bg = 'white', command = lambda: self.show('%')).place(x = 180, y = 50)
+        Button(width = 11, height = 4, text = '1', relief = 'flat', bg = 'white', command = lambda: self.show(1)).place(x = 0, y = 125)
+        Button(width = 11, height = 4, text = '2', relief = 'flat', bg = 'white', command = lambda: self.show(2)).place(x = 90, y = 125)
+        Button(width = 11, height = 4, text = '3', relief = 'flat', bg = 'white', command = lambda: self.show(3)).place(x = 180, y = 125)
+        Button(width = 11, height = 4, text = '4', relief = 'flat', bg = 'white', command = lambda: self.show(4)).place(x = 0, y = 200)
+        Button(width = 11, height = 4, text = '5', relief = 'flat', bg = 'white', command = lambda: self.show(5)).place(x = 90, y = 200)
+        Button(width = 11, height = 4, text = '6', relief = 'flat', bg = 'white', command = lambda: self.show(6)).place(x = 180, y = 200)
+        Button(width = 11, height = 4, text = '7', relief = 'flat', bg = 'white', command = lambda: self.show(7)).place(x = 0, y = 275)
+        Button(width = 11, height = 4, text = '8', relief = 'flat', bg = 'white', command = lambda: self.show(8)).place(x = 90, y = 275)
+        Button(width = 11, height = 4, text = '9', relief = 'flat', bg = 'white', command = lambda: self.show(9)).place(x = 180, y = 275)
+        Button(width = 11, height = 4, text = '0', relief = 'flat', bg = 'white', command = lambda: self.show(0)).place(x = 90, y = 350)
+        Button(width = 11, height = 4, text = '.', relief = 'flat', bg = 'white', command = lambda: self.show('.')).place(x = 180, y = 350)
+        Button(width = 11, height = 4, text = '+', relief = 'flat', bg = 'white', command = lambda: self.show('+')).place(x = 270, y = 275)
+        Button(width = 11, height = 4, text = '-', relief = 'flat', bg = 'white', command = lambda: self.show('-')).place(x = 270, y = 200)
+        Button(width = 11, height = 4, text = '/', relief = 'flat', bg = 'white', command = lambda: self.show('/')).place(x = 270, y = 50)
+        Button(width = 11, height = 4, text = 'X', relief = 'flat', bg = 'white', command = lambda: self.show('*')).place(x = 270, y = 125)
+        Button(width = 11, height = 4, text = '=', relief = 'flat', bg = 'lightblue', command = self.solve).place(x = 270, y = 350)
+        Button(width = 11, height = 4, text = 'C', relief = 'flat', command = self.clear).place(x = 0, y = 350)
         
-    arthimetic = int(input(f'What operation are we doing: \n1.Addition 2.Subtraction 3.Multiplication 4.Division\n'))
+    def show(self,value):
+        self.entry_value += str(value)
+        self.equation.set(self.entry_value)
+
+    def clear(self):
+        self.entry_value = ''
+        self.equation.set(self.entry_value)
+
+    def solve(self):
+        result = eval(self.entry_value)
+        self.equation.set(result)
+        
     
-    num1 = float(input('\nEnter first number:    '))
-    num2 = float(input('\nEnter second number:   '))
 
-    if arthimetic == 1:
-        print(f'{num1} + {num2} = {addition(num1, num2)}') 
-    elif arthimetic == 2:
-        print(f'{num1} - {num2} = {subtraction(num1, num2)}') 
-    elif arthimetic == 3:
-        print(f'{num1} x {num2} = {multiplication(num1, num2)}') 
-    elif arthimetic == 4:
-        print(f'{num1} / {num2} = {division(num1, num2)}') 
-    else:
-        print(f'Enter a valid option')
+root = Tk()
+Calculator = Calculator(root)
+root.mainloop()
 
-basic_calculator()        
